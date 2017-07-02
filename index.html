@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>To Do List</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+  </head>
+<body ng-app='ToDoListApp'>
+  <div class="container">
+    <h1>To Do List</h1>
+
+    <form ng-submit="myFunc()" ng-controller="ToDoListAddController as adder">
+      <div class="form-group">
+        <input autofocus type="text" ng-model="adder.todoTask" placeholder="task to do" class="form-control">
+      </div>
+      <div class="form-group narrow-button">
+        <button class="btn btn-primary" ng-click="adder.addTodo()">Add Task To List</button>
+      </div>
+      <div ng-if="adder.hasDuplicate">Task Already In List</div>
+    </form>
+
+    <div class="row">
+
+      <div class="col-xs-6" ng-controller="ToDoListController as todoList">
+        <h2>To Do</h2>
+        <ul>
+          <li ng-repeat="item in todoList.items">
+            {{ item }}
+            <button class="btn btn-default btn-sm" ng-click="todoList.removeTodo($index);">Task Completed</button>
+          </li>
+        </ul>
+        <div ng-if="!todoList.items[0]">Nothing to do</div>
+      </div>
+
+      <div class="col-xs-6" ng-controller="DoneListController as doneList">
+        <h2>Completed</h2>
+        <ul>
+          <li ng-repeat="item in doneList.items">
+            {{ item }}
+          </li>
+        </ul>
+        <div ng-if="!doneList.items[0]">Nothing done</div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
